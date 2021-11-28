@@ -20,8 +20,15 @@ namespace SudokuSolver
             sudoku[7] = new int[9] { 0, 4, 5, 0, 6, 2, 0, 0, 0 };
             sudoku[8] = new int[9] { 0, 0, 0, 0, 5, 7, 0, 0, 1 };
             sudoku = GetSolvedSudoku(sudoku);
-            Console.WriteLine(IsSudokuValid(sudoku));
 
+            foreach (var arr in sudoku)
+            {
+                foreach (var number in arr)
+                {
+                    Console.Write(number + "|");
+                }
+                Console.WriteLine();
+            }
         }
 
 
@@ -154,81 +161,6 @@ namespace SudokuSolver
             }
 
             return layers.Peek().Sudoku;
-        }
-
-        /// <summary>
-        /// Checks if a given sudoky puzzle doesn't have any illegal numbers
-        /// takes a 9X9 matrix
-        /// </summary>
-        /// <param name="sudoku"></param>
-        /// <returns></returns>
-        public static bool IsSudokuValid(int[][] sudoku)
-        {
-            bool[] row;
-            for (int i = 0; i < 9; i++)
-            {
-
-                //loop through horizontally --get missing number/get from the columns get from the squares
-                row = GetEmptyRow();
-                for (int j = 0; j < 9; j++)
-                {
-                    int currentCellValue = sudoku[i][j];
-                    if (currentCellValue > 0)
-                    {
-                        bool valueAlreadyExistsInRow = row[currentCellValue - 1];
-                        if (valueAlreadyExistsInRow)
-                        {
-                            return false;
-                        }
-                        row[sudoku[i][j] - 1] = true;
-                    }
-                }
-
-                //loop through vertically 
-                row = GetEmptyRow();
-                for (int j = 0; j < 9; j++)
-                {
-                    int currentCellValue = sudoku[j][i];
-                    if (currentCellValue > 0)
-                    {
-                        bool valueAlreadyExistsInColumn = row[currentCellValue - 1];
-                        if (valueAlreadyExistsInColumn)
-                        {
-                            return false;
-                        }
-                        row[sudoku[j][i] - 1] = true;
-                    }
-                }
-
-                //loop through each 3X3 square
-                row = GetEmptyRow();
-                for (int j = 0; j < 9; j++)
-                {
-                    int currentCellValue = sudoku[j / 3 + (i % 2) * 3][j % 3 + ((i / 3) * 3)];
-
-                    if (currentCellValue > 0)
-                    {
-                        bool valueAlreadyExistsInSquare = row[currentCellValue - 1];
-                        if (valueAlreadyExistsInSquare)
-                        {
-                            return false;
-                        }
-                        row[currentCellValue - 1] = true;
-                    }
-                }
-
-            }
-
-            return true;
-            static bool[] GetEmptyRow()
-            {
-                bool[] row = new bool[9];
-                for (int i = 0; i < row.Length; i++)
-                {
-                    row[i] = false;
-                }
-                return row;
-            }
         }
     }
 
