@@ -26,8 +26,8 @@ namespace SudokuSolver
 
 
         /// <summary>
-        /// function that finds the first empty cell in a matrix--loop from left top to right bottom
-        /// cell is considred empty if the value less than 1, matrix must be 9X9, if there is no empty cell returns -1,-1
+        /// function that finds the first empty cell in a matrix--loops from left top to right bottom
+        /// cell is considred empty if the value less 0, matrix must be 9X9, if there is no empty cell returns -1,-1
         /// </summary>
         /// <param name="matrix"></param>
         /// <returns></returns>
@@ -97,7 +97,12 @@ namespace SudokuSolver
         }
 
         
-
+        /// <summary>
+        /// returns the solution to a 9X9 sudoku puzzel, this method assumes that the puzzle is solvable
+        /// the sudoku should be a 9X9 jagged array, for empty celss the value should be 0.
+        /// </summary>
+        /// <param name="sudoku"></param>
+        /// <returns></returns>
         public static int[][] GetSolvedSudoku(int[][] sudoku)
         {
             sudoku = FillAllKnownNumbers(sudoku);
